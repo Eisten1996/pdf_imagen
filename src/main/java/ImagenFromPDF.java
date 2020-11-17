@@ -18,13 +18,13 @@ public class ImagenFromPDF {
         PDFRenderer pdfRenderer = new PDFRenderer(pdf);
         for (int page = 0; page < pdf.getNumberOfPages(); ++page) {
             BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);
-            ImageIOUtil.writeImage(bim, String.format("src/output/pokemon-%d.%s", page + 1, extension), 300);
+            ImageIOUtil.writeImage(bim, String.format("src/output/img-%d.%s", page + 1, extension), 300);
         }
         pdf.close();
     }
 
     public static void main(String[] args) throws IOException {
         ImagenFromPDF imagenFromPDF = new ImagenFromPDF();
-        imagenFromPDF.generateImageFromPDF("src\\main\\resources\\pdf_entrada\\pokemones.pdf", "jpg");
+        imagenFromPDF.generateImageFromPDF("src/main/resources/pdf_entrada/documento-firmado.pdf", "jpg");
     }
 }
