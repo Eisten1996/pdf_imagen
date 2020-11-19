@@ -23,8 +23,20 @@ public class ImagenFromPDF {
         pdf.close();
     }
 
+    private void generateImageFromPDFArray(String filename, String extension, Integer pags[]) throws IOException {
+        PDDocument pdf2 = PDDocument.load(new File(filename));
+        PDFRenderer pdfRenderer = new PDFRenderer(pdf2);
+        for (int page = 0; page < pags.length; ++page) {
+            BufferedImage bim = pdfRenderer.renderImageWithDPI(pags[page], 300, ImageType.RGB);
+            ImageIOUtil.writeImage(bim, String.format("src/output/img-%d.%s", page + 1, extension), 300);
+        }
+        pdf2.close();
+    }
+
     public static void main(String[] args) throws IOException {
+        Integer pags[] = {0, 2};
         ImagenFromPDF imagenFromPDF = new ImagenFromPDF();
-        imagenFromPDF.generateImageFromPDF("src\\main\\resources\\pdf_entrada\\pokemones.pdf", "jpg");
+//        imagenFromPDF.generateImageFromPDF("src\\main\\resources\\pdf_entrada\\pokemones.pdf", "jpg");
+        imagenFromPDF.generateImageFromPDFArray("src\\main\\resources\\pdf_entrada\\pokemones.pdf", "jpg", pags);
     }
 }
